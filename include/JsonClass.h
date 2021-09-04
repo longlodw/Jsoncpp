@@ -87,7 +87,7 @@ template <typename Alloc = std::allocator<char>>
         static constexpr JsonHash<Alloc> hasher{};
         
         JsonObject(const size_t &num = 32);
-        const Json<Alloc>* at(const JsonString<Alloc> &key) const;
+        Json<Alloc>* at(const JsonString<Alloc> &key);
         Json<Alloc> &operator[](const JsonString<Alloc> &key);
         Json<Alloc> &operator[](JsonString<Alloc> &&key);
         template <typename K, typename V>
@@ -371,7 +371,7 @@ template <typename Alloc = std::allocator<char>>
     }
 
     template <typename Alloc>
-    const Json<Alloc>* JsonObject<Alloc>::at(const JsonString<Alloc>& key) const {
+    Json<Alloc>* JsonObject<Alloc>::at(const JsonString<Alloc>& key) {
         size_t hash_value = hasher(key);
         auto &dc = Json<Alloc>::json.dynamic_container;
         size_t start = hash_value % dc.length;
